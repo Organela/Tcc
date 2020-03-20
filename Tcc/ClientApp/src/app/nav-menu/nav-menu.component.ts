@@ -8,6 +8,7 @@ import { Component, NgZone } from '@angular/core';
 export class NavMenuComponent {
   isExpanded = false;
   isSignin = false;
+  profile:any
 
   constructor(ngZone: NgZone) {
     window['onSignIn'] = (user) => ngZone.run(() => this.onSignIn(user));
@@ -23,11 +24,11 @@ export class NavMenuComponent {
 
   onSignIn(googleUser): void {
     this.isSignin = true;
-    var profile = googleUser.getBasicProfile();
-    console.warn('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.warn('Name: ' + profile.getName());
-    console.warn('Image URL: ' + profile.getImageUrl());
-    console.warn('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    this.profile = googleUser.getBasicProfile();
+    console.warn('ID: ' + this.profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.warn('Name: ' + this.profile.getName());
+    console.warn('Image URL: ' + this.profile.getImageUrl());
+    console.warn('Email: ' + this.profile.getEmail()); // This is null if the 'email' scope is not present.
   }
 
   signOut(): void {
